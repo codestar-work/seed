@@ -8,9 +8,9 @@ app.get('/', home)
 app.get('/register', register)
 
 function home(req, res) {
-	res.send('index.html')
+	res.render('index.html')
 }
 
 function register(req, res) {
-	res.send('register.html')
+	res.render('register.html')
 }
