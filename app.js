@@ -13,6 +13,21 @@ app.use(check)
 app.get('/', home)
 app.get('/register', register)
 app.post('/register', registerUser)
+app.get('/login', login)
+app.get('/profile', profile)
+
+var approved = [ ]
+function profile(req, res) {
+	if (approved[req.token]) {
+		res.render('profile.html')
+	} else {
+		res.redirect('/login')
+	}
+}
+
+function login(req, res) {
+	res.render('login.html')
+}
 
 function check(req, res, next) {
 	if (req.get('Cookie') == null) {
