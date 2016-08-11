@@ -14,7 +14,35 @@ app.get('/', home)
 app.get('/register', register)
 app.post('/register', registerUser)
 app.get('/login', login)
+app.post('/login', checkLogin)
 app.get('/profile', profile)
+
+function checkLogin(req, res) {
+	var data = ''
+	req.on('data', chunk => data += chunk)
+	req.on('end', () => {
+		var o = {}
+		data = decodeURIComponent(data)
+		var a = data.split('&')
+		for (var i = 0; i < a.length; i++) {
+			var f = a[i].split('=')
+			o[f[0]] = f[1]
+		}
+		o.password = crypto.createHmac('sha256', o.password)
+						.digest('hex')
+		client.connect(database, (error, db) => {
+			db.collection('user').find(o).toArray(
+				(error, data) => {
+				if (data.length == 1) {
+					approved[req.token] = data[0]
+					res.redirect("/profile")
+				} else {
+					res.redirect("/login?invalid password")
+				}
+			})
+		})
+	})
+}
 
 var approved = [ ]
 function profile(req, res) {
@@ -46,9 +74,7 @@ function check(req, res, next) {
 
 function registerUser(req, res) {
 	var data = ""
-	req.on("data", chunk => {
-		data += chunk
-	})
+	req.on("data", chunk => data += chunk )
 	req.on("end", () => {
 		// name=Bill Gates&email=bill@ms.com&password=bill123
 		var o = {}
