@@ -21,7 +21,7 @@ function registerUser(req, res) {
 	req.on("end", () => {
 		// name=Bill Gates&email=bill@ms.com&password=bill123
 		var o = {}
-		data = decodeURI(data)
+		data = decodeURIComponent(data)
 		data = data.replace('+', ' ')
 		var a = data.split('&')
 		for (var i = 0; i < a.length; i++) {
