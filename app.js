@@ -12,7 +12,14 @@ app.post('/register', registerUser)
 app.get('/save-user', registerNewUser)
 
 function registerUser(req, res) {
-	
+	var data = ""
+	req.on("data", chunk => {
+		data += chunk
+	})
+	req.on("end", () => {
+		console.log(data)
+	})
+	res.redirect("/")
 }
 
 function registerNewUser(req, res) {
