@@ -17,6 +17,11 @@ app.get('/login', login)
 app.post('/login', checkLogin)
 app.get('/profile', profile)
 app.get('/logout', logout)
+app.use(showError)
+
+function showError(req, res) {
+	res.status(404).send("Error 404 Not Found")
+}
 
 function logout(req, res) {
 	delete approved[req.token]
