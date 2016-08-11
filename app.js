@@ -15,10 +15,16 @@ app.get('/register', register)
 app.post('/register', registerUser)
 
 function check(req, res, next) {
-	if (req.headers['Cookie'] == null) {
+	if (req.get('Cookie') == null) {
 		var t1 = parseInt(Math.random() * 100000000)
 		var t2 = parseInt(Math.random() * 100000000)
-		res.set('Set-Cookie', 'token=' + t1 + '-' + t2)
+		req.token = t1 + '-' + t2
+		res.set('Set-Cookie', 'token=' + req.token)
+	} else {
+		var s = req.get('Cookie') + ';'
+		var start = s.indexOf('token=') + 6
+		var stop  = s.indexOf(';', start)
+		req.token = s.substring(start, stop)
 	}
 	next()
 }
