@@ -17,9 +17,18 @@ function registerUser(req, res) {
 		data += chunk
 	})
 	req.on("end", () => {
-		console.log(data)
+		// name=Bill Gates&email=bill@ms.com&password=bill123
+		var o = {}
+		data = decodeURI(data)
+		data = data.replace('+', ' ')
+		var a = data.split('&')
+		for (var i = 0; i < a.length; i++) {
+			var f = a[i].split('=')
+			o[f[0]] = f[1]
+		}
+		console.log(o)
+		res.redirect("/")
 	})
-	res.redirect("/")
 }
 
 function registerNewUser(req, res) {
