@@ -5,6 +5,8 @@ var app = express()
 var ejs = require('ejs')
 var mongo = require('mongodb')
 var client = mongo.MongoClient
+var crypto = require('crypto')
+
 app.engine('html', ejs.renderFile)
 app.listen(2000)
 
@@ -28,6 +30,8 @@ function registerUser(req, res) {
 			var f = a[i].split('=')
 			o[f[0]] = f[1]
 		}
+		o.password = crypto.createHmac('sha256', o.password)
+						.digest('hex')
 		client.connect(database, (error, db) => {
 			db.collection("user").find(
 				{email: o.email}
