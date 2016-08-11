@@ -16,6 +16,12 @@ app.post('/register', registerUser)
 app.get('/login', login)
 app.post('/login', checkLogin)
 app.get('/profile', profile)
+app.get('/logout', logout)
+
+function logout(req, res) {
+	delete approved[req.token]
+	res.render('logout.html')
+}
 
 function checkLogin(req, res) {
 	var data = ''
