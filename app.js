@@ -8,8 +8,12 @@ app.listen(2000)
 
 app.get('/', home)
 app.get('/register', register)
-// app.post('/register', registerNewUser)
+app.post('/register', registerUser)
 app.get('/save-user', registerNewUser)
+
+function registerUser(req, res) {
+	
+}
 
 function registerNewUser(req, res) {
 	client.connect("mongodb://127.0.0.1/test1",
