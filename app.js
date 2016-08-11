@@ -1,3 +1,5 @@
+const database = "mongodb://127.0.0.1/test1"
+
 var express = require('express')
 var app = express()
 var ejs = require('ejs')
@@ -26,8 +28,18 @@ function registerUser(req, res) {
 			var f = a[i].split('=')
 			o[f[0]] = f[1]
 		}
-		console.log(o)
-		res.redirect("/")
+		client.connect(database, (error, db) => {
+			db.collection("user").find(
+				{email: o.email}
+			).toArray((error, data) => {
+				if (data.length == 0) {
+					db.collection("user").insert(o)
+					res.redirect("/")
+				} else {
+					res.redirect("/register?duplicated email")
+				}
+			})
+		})
 	})
 }
 
