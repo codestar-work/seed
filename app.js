@@ -9,11 +9,19 @@ var crypto = require('crypto')
 
 app.engine('html', ejs.renderFile)
 app.listen(2000)
-
+app.use(check)
 app.get('/', home)
 app.get('/register', register)
 app.post('/register', registerUser)
-app.get('/save-user', registerNewUser)
+
+function check(req, res, next) {
+	if (req.headers['Cookie'] == null) {
+		var t1 = parseInt(Math.random() * 100000000)
+		var t2 = parseInt(Math.random() * 100000000)
+		res.set('Set-Cookie', 'token=' + t1 + '-' + t2)
+	}
+	next()
+}
 
 function registerUser(req, res) {
 	var data = ""
@@ -45,19 +53,6 @@ function registerUser(req, res) {
 			})
 		})
 	})
-}
-
-function registerNewUser(req, res) {
-	client.connect("mongodb://127.0.0.1/test1",
-		(errord, db) => {
-			var u = {}
-			u.name = req.query.name
-			u.email = req.query.email
-			u.password = req.query.password
-			db.collection("user").insert(u)
-			res.redirect('/')
-		}
-	)
 }
 
 function home(req, res) {
