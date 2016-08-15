@@ -22,6 +22,10 @@
 			<form method="post" enctype="multipart/form-data">
 				<input name="user" value="<%= user.name %>" 
 					class="form-control">
+				<% if (user.picture != null) { %>
+					<img src="<%= user.picture %>" 
+						class="img-responsive" >
+				<% } %>
 				<input name="picture" 
 					type="file" class="btn btn-default">
 				<button type="submit"
