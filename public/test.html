@@ -1,1 +1,23 @@
-Test is the test.html file.
+<script>
+function order() {
+	alert("Order!")
+}
+</script>
+
+<form action="javascript:order()">
+<input type="radio" name="type" value="Latte" id="latte"> 
+<label for="latte">Latte</label>
+
+<input type="radio" name="type" value="Mocha"> Mocha
+<input type="radio" name="type" value="Espresso"> Espresso
+<hr>
+<input type="checkbox" name="WhippedCream"> Whipped Cream
+<input type="checkbox" name="CoffeeJelly"> Coffee Jelly
+<hr>
+<input type="radio" name="milk" value="Whole"> Whole Milk
+<input type="radio" name="milk" value="Non-Fat"> Non-Fat Milk
+<input type="radio" name="milk" value="Soy"> Soy Milk
+
+<br>
+<button type="submit">Order</button>
+</form>
