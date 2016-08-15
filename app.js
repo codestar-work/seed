@@ -8,6 +8,7 @@ var client = mongo.MongoClient
 var crypto = require('crypto')
 var multer = require('multer')
 var upload = multer({dest:'./uploads'})
+var fs = require('fs')
 
 app.engine('html', ejs.renderFile)
 app.listen(2000)
@@ -19,12 +20,30 @@ app.post('/register', registerUser)
 app.get('/login', login)
 app.post('/login', checkLogin)
 app.get('/profile', profile)
-app.post('/profile', updateProfile)
+app.post('/profile', upload.single('picture'), updateProfile)
 app.get('/logout', logout)
 app.get(['/contact', '/contact-us'], showContact)
 app.use(showError)
 
 function updateProfile(req, res) {
+	var ext = ""
+	if (req.file.mimetype == "image/png") {
+		ext = ".png"
+	} else if (req.file.mimetype == "image/jpeg") {
+		ext = ".jpg"
+	}
+
+	if (ext == "") {
+
+	} else {
+		fs.rename("./uploads/" + req.file.filename,
+				  "./uploads/" + req.file.filename + ext)
+		var o = {email: approved[req.token].email}
+		var n = approved[req.token]
+		n.picture = req.file.filename + ext
+		client.connect(database, 
+			(error, db) => db.collection("user").update(o, n))
+	}
 	res.redirect("/profile")
 }
 
