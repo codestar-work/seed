@@ -18,7 +18,12 @@ app.get('/login', login)
 app.post('/login', checkLogin)
 app.get('/profile', profile)
 app.get('/logout', logout)
+app.get(['/contact', '/contact-us'], showContact)
 app.use(showError)
+
+function showContact(req, res) {
+	res.render('contact.html')
+}
 
 function showError(req, res) {
 	res.status(404).send("Error 404 Not Found")
