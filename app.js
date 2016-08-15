@@ -28,19 +28,26 @@ app.use(showError)
 
 function updateProfile(req, res) {
 	var ext = ""
-	if (req.file.mimetype == "image/png") {
-		ext = ".png"
-	} else if (req.file.mimetype == "image/jpeg") {
-		ext = ".jpg"
+	if (req.file != null) {
+		if (req.file.mimetype == "image/png") {
+			ext = ".png"
+		} else if (req.file.mimetype == "image/jpeg") {
+			ext = ".jpg"
+		}
 	}
 
 	if (ext == "") {
-
+		var o = {email: approved[req.token].email}
+		var n = approved[req.token]
+		n.name = req.body.user
+		client.connect(database,
+			(error, db) => db.collection("user").update(o, n))
 	} else {
 		fs.rename("./uploads/" + req.file.filename,
 				  "./uploads/" + req.file.filename + ext)
 		var o = {email: approved[req.token].email}
 		var n = approved[req.token]
+		n.name = req.body.user
 		n.picture = req.file.filename + ext
 		client.connect(database, 
 			(error, db) => db.collection("user").update(o, n))
