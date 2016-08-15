@@ -64,7 +64,9 @@ function checkLogin(req, res) {
 var approved = [ ]
 function profile(req, res) {
 	if (approved[req.token]) {
-		res.render('profile.html')
+		var model = { }
+		model.user = approved[req.token]
+		res.render('profile.html', model)
 	} else {
 		res.redirect('/login')
 	}
