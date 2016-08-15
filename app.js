@@ -6,6 +6,8 @@ var ejs = require('ejs')
 var mongo = require('mongodb')
 var client = mongo.MongoClient
 var crypto = require('crypto')
+var multer = require('multer')
+var upload = multer({dest:'./uploads'})
 
 app.engine('html', ejs.renderFile)
 app.listen(2000)
@@ -17,9 +19,14 @@ app.post('/register', registerUser)
 app.get('/login', login)
 app.post('/login', checkLogin)
 app.get('/profile', profile)
+app.post('/profile', updateProfile)
 app.get('/logout', logout)
 app.get(['/contact', '/contact-us'], showContact)
 app.use(showError)
+
+function updateProfile(req, res) {
+	res.redirect("/profile")
+}
 
 function showContact(req, res) {
 	res.render('contact.html')
