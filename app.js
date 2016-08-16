@@ -17,6 +17,18 @@ app.use(check)
 app.use(express.static('public'))
 app.use(express.static('uploads'))
 
+app.get ('/api/coffee', search)
+function search(req, res) {
+	// req.query.name
+	// req.query.size
+	for (var i = 0; i < coffee.length; i++) {
+		if (req.query.name == coffee[i].name &&
+			req.query.size == coffee[i].size) {
+			res.send({price: coffee[i].price})
+		}
+	}
+}
+
 var coffee = [
 	{name:'Espresso', size:'Solo', price:80},
 	{name:'Espresso', size:'Doppio', price:95},
