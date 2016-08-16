@@ -17,6 +17,21 @@ app.use(check)
 app.use(express.static('public'))
 app.use(express.static('uploads'))
 
+app.get ('/api/list', list)
+
+function list(req, res) {
+	var r = [ ]
+
+	for (var c of coffee) {
+		if (c.price >= req.query.min &&
+			c.price <= req.query.max) {
+			r.push(c)
+		}
+	}
+
+	res.send(r)
+}
+
 app.get ('/api/coffee', search)
 function search(req, res) {
 	// For (3)
