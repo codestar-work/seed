@@ -17,6 +17,50 @@ app.use(check)
 app.use(express.static('public'))
 app.use(express.static('uploads'))
 
+var coffee = [
+	{name:'Espresso', size:'Solo', price:80},
+	{name:'Espresso', size:'Doppio', price:95},
+
+	{name:'Americano', size:'Tall',   price:100},
+	{name:'Americano', size:'Grande', price:115},
+	{name:'Americano', size:'Venti',  price:130},
+
+	{name:'Latte', size:'Tall',   price:110},
+	{name:'Latte', size:'Grande', price:125},
+	{name:'Latte', size:'Venti',  price:140},
+]
+
+
+
+app.get ('/api/status', showApiStatus)
+app.get ('/api/zip',    showZip)
+app.get ('/api/zip/:city', findZip)
+
+function showApiStatus(req, res) {
+	res.send({status:'ready'})
+}
+
+var zip = {
+	"บางรัก": "10500",
+	"ดุสิต": "10300"
+}
+
+function findZip(req, res) {
+	var c = zip[req.params.city]
+	if (c == null) {
+		c = "not found"
+	}
+	res.send({result: c})
+}
+
+function showZip(req, res) {
+	var c = zip[req.query.city]
+	if (c == null) {
+		c = "not found"
+	}
+	res.send({result:c})
+}
+
 app.get ('/',         home)
 app.get ('/register', register)
 app.post('/register', registerUser)
