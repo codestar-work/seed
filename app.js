@@ -19,14 +19,36 @@ app.use(express.static('uploads'))
 
 app.get ('/api/coffee', search)
 function search(req, res) {
-	// req.query.name
-	// req.query.size
+	// For (3)
+	for (var c of coffee) {
+		if (req.query.name == c.name &&
+			req.query.size == c.size) {
+			res.send({price: c.price})
+			return;
+		}
+	}
+
+	// For (2)
+	/*
+	for (var i in coffee) {
+		if (req.query.name == coffee[i].name &&
+			req.query.size == coffee[i].size) {
+			res.send({price: coffee[i].price})
+			return;
+		}
+	}
+	*/
+	// For (1)
+	/*
 	for (var i = 0; i < coffee.length; i++) {
 		if (req.query.name == coffee[i].name &&
 			req.query.size == coffee[i].size) {
 			res.send({price: coffee[i].price})
+			return;
 		}
 	}
+	*/
+	res.send({price:'not found'})
 }
 
 var coffee = [
