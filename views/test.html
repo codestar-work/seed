@@ -1,0 +1,26 @@
+<% include header.html %>
+
+<div class="container">
+	<form action='javascript:search()'>
+		<input class='form-control' id='city' autofocus
+			placeholder='กรุณาชื่ออำเภอหรือเขต'>
+		<button class='btn btn-primary' type='submit'>Search</button>
+	</form>
+
+	<script src='https://icode.run/jquery.js'></script>
+	<script>
+		function search() {
+			var c = $('#city').val()
+			var url = '/api/zip?city=' + c
+			$.get(url).done(show)
+		}
+
+		function show(data) {
+			alert(data.result)
+		}
+
+	</script>
+
+</div>
+
+<% include footer.html %>

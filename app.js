@@ -17,6 +17,8 @@ app.use(check)
 app.use(express.static('public'))
 app.use(express.static('uploads'))
 
+app.get ('/search', (req, res) => res.render('test.html'))
+
 app.get ('/api/list', list)
 
 function list(req, res) {
