@@ -1,29 +1,10 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Log In</title>
-		<link rel="stylesheet" href="/css/bootstrap.min.css" >
-		<style>
-			body {
-				padding-top: 20px;
-			}
-			form {
-				max-width: 240px;
-				margin: 0 auto;
-			}
-			form * {
-				margin-bottom: 10px;
-			}
-		</style>
-	</head>
-	<body>
-		<form method="post">
-			<input name="email" class="form-control"
-				placeholder="Email" autofocus >
-			<input name="password" type="password" 
-				placeholder="Password" class="form-control">
-			<button type="Submit" class="btn btn-primary"
-				>Log In</button>
-		</form>
-	</body>
-</html>
+<% include header.html %>
+<form method="post">
+	<input name="email" class="form-control"
+		placeholder="Email" autofocus >
+	<input name="password" type="password" 
+		placeholder="Password" class="form-control">
+	<button type="Submit" class="btn btn-primary"
+		>Log In</button>
+</form>
+<% include footer.html %>

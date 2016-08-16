@@ -1,38 +1,26 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>User Profile</title>
-		<link rel="stylesheet" href="/css/bootstrap.min.css" >
-		<style>
-			form * {
-				margin-bottom: 10px;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container" style="margin-top:10px;">
-			<div class="btn-group">
-			<a class="btn btn-default" href="/">Home</a>
-			<a class="btn btn-default" href="/profile">Profile</a>
-			<a class="btn btn-default" href="/logout">Log Out</a>
-			</div>
-			<h3>Hello <%= user.name %> </h3>
-			<hr>
-			<h3>Settings</h3>
-			<form method="post" enctype="multipart/form-data">
-				<input name="user" value="<%= user.name %>" 
-					class="form-control">
-				<% if (user.picture != null) { %>
-					<img src="<%= user.picture %>" 
-						class="img-responsive" >
-				<% } %>
-				<input name="picture" 
-					type="file" class="btn btn-default">
-				<button type="submit"
-					class="btn btn-danger">Update</button>
-			</form>
-		</div>
+<% include header.html %>
 
-	</body>
+<div class="container" style="margin-top:10px;">
+	<div class="btn-group">
+	<a class="btn btn-default" href="/">Home</a>
+	<a class="btn btn-default" href="/profile">Profile</a>
+	<a class="btn btn-default" href="/logout">Log Out</a>
+	</div>
+	<h3>Hello <%= user.name %> </h3>
+	<hr>
+	<h3>Settings</h3>
+	<form method="post" enctype="multipart/form-data">
+		<input name="user" value="<%= user.name %>" 
+			class="form-control">
+		<% if (user.picture != null) { %>
+			<img src="<%= user.picture %>" 
+				class="img-responsive" >
+		<% } %>
+		<input name="picture" 
+			type="file" class="btn btn-default">
+		<button type="submit"
+			class="btn btn-danger">Update</button>
+	</form>
+</div>
 
-</html>
+<% include footer.html %>
