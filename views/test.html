@@ -12,6 +12,7 @@
 	<script>
 		function search() {
 			var c = $('#city').val()
+			// var url = 'http://104.199.206.52/api/zip?city=' + c
 			var url = '/api/zip?city=' + c
 			$.get(url).done(show)
 		}

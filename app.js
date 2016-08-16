@@ -109,6 +109,7 @@ function showZip(req, res) {
 	if (c == null) {
 		c = "not found"
 	}
+	res.set('Access-Control-Origin-Allow', '*')
 	res.send({result:c})
 }
 
