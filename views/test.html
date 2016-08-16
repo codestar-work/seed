@@ -5,6 +5,7 @@
 		<input class='form-control' id='city' autofocus
 			placeholder='กรุณาชื่ออำเภอหรือเขต'>
 		<button class='btn btn-primary' type='submit'>Search</button>
+		<p id='result'></p>
 	</form>
 
 	<script src='https://icode.run/jquery.js'></script>
@@ -16,7 +17,8 @@
 		}
 
 		function show(data) {
-			alert(data.result)
+			// alert(data.result)
+			$('#result').html('The zip code is ' + data.result)
 		}
 
 	</script>
