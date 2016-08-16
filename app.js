@@ -1,30 +1,32 @@
-const database = "mongodb://127.0.0.1/test1"
-
+var fs      = require('fs')
 var express = require('express')
-var app = express()
-var ejs = require('ejs')
-var mongo = require('mongodb')
-var client = mongo.MongoClient
-var crypto = require('crypto')
-var multer = require('multer')
-var upload = multer({dest:'./uploads'})
-var fs = require('fs')
+var app     = express()
+var ejs     = require('ejs')
+var mongo   = require('mongodb')
+var client  = mongo.MongoClient
+var crypto  = require('crypto')
+var multer  = require('multer')
+var upload  = multer({dest:'./uploads'})
+
+var approved   = [ ]
+const database = "mongodb://127.0.0.1/test1"
 
 app.engine('html', ejs.renderFile)
 app.listen(2000)
 app.use(check)
 app.use(express.static('public'))
 app.use(express.static('uploads'))
-app.get('/', home)
-app.get('/register', register)
+
+app.get ('/',         home)
+app.get ('/register', register)
 app.post('/register', registerUser)
-app.get('/login', login)
-app.post('/login', checkLogin)
-app.get('/profile', profile)
-app.post('/profile', upload.single('picture'), updateProfile)
-app.get('/logout', logout)
-app.get(['/contact', '/contact-us'], showContact)
-app.use(showError)
+app.get ('/login',    login)
+app.post('/login',    checkLogin)
+app.get ('/profile',  profile)
+app.post('/profile',  upload.single('picture'), updateProfile)
+app.get ('/logout',   logout)
+app.get (['/contact', '/contact-us'], showContact)
+app.use (showError)
 
 function updateProfile(req, res) {
 	var ext = ""
@@ -95,7 +97,6 @@ function checkLogin(req, res) {
 	})
 }
 
-var approved = [ ]
 function profile(req, res) {
 	if (approved[req.token]) {
 		var model = { }
