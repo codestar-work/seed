@@ -15,6 +15,8 @@
 		id='message'>
 	<button type='submit' class='btn btn-primary'
 	>Send</button>
+	<a href='javascript:clear()'
+		class='btn btn-default'>Clear Log</a>
 </form>
 
 <script src='https://icode.run/jquery.js'></script>
@@ -31,6 +33,9 @@
 		var s = $('#message').val()
 		$('#message').val('')
 		socket.send({action:'chat', value:s})
+	}
+	function clear() {
+		$('#log').html('')
 	}
 </script>
 
