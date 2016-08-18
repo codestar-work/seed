@@ -15,4 +15,10 @@
 	>Send</button>
 </form>
 
+<script src='/socket.io/socket.io.js'></script>
+<script>
+	var socket = io.connect('/')
+	socket.send({email: '<%= user.email %>'})
+</script>
+
 <% include footer.html %>

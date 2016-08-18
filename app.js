@@ -12,6 +12,12 @@ var io      = require('socket.io')()
 var approved   = [ ]
 const database = "mongodb://127.0.0.1/test1"
 
+io.on('connection', socket => {
+	socket.on('message', m => {
+		console.log(m)
+	})
+})
+
 app.engine('html', ejs.renderFile)
 io.listen( app.listen(2000) )
 app.use(check)
@@ -130,7 +136,8 @@ function showChat(req, res) {
 	if (approved[req.token] == null) {
 		res.redirect('/login')
 	} else {
-		res.render('chat.html')
+		res.render('chat.html', 
+			{user: approved[req.token]})
 	}
 }
 
