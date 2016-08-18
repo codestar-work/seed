@@ -11,7 +11,8 @@
 	<textarea class='form-control'
 		id='history' ></textarea>
 	<input class='form-control' autofocus
-		placeholder='Type Message Here'>
+		placeholder='Type Message Here'
+		id='message'>
 	<button type='submit' class='btn btn-primary'
 	>Send</button>
 </form>
@@ -26,6 +27,10 @@
 		s += m + '\n'
 		$('#history').val(s)
 	})
+	function send() {
+		var s = $('#message').val()
+		socket.send(s)
+	}
 </script>
 
 <% include footer.html %>

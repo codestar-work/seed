@@ -20,6 +20,8 @@ io.on('connection', socket => {
 			socket.broadcast.send(
 				m.email + 
 				" just joined the Chat system.")
+		} else {
+			socket.broadcast.send(m)
 		}
 	})
 	socket.on('disconnect', () => {
