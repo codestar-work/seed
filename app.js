@@ -17,8 +17,7 @@ io.on('connection', socket => {
 	socket.on('message', m => {
 		if (m.action == 'email') {
 			socket.email = m.value
-			socket.broadcast.send(
-				m.value + 
+			socket.broadcast.send(m.value + 
 				" just joined the Chat system.")
 		} else if (m.action == 'chat') {
 			socket.send(socket.email + ": " + m.value)
@@ -26,20 +25,9 @@ io.on('connection', socket => {
 		} else {
 
 		}
-		/*
-		if (m.email != null) {
-			socket.email = m.email
-			socket.broadcast.send(
-				m.email + 
-				" just joined the Chat system.")
-		} else {
-			socket.broadcast.send(m)
-		}
-		*/
 	})
 	socket.on('disconnect', () => {
-		socket.broadcast.send(
-			socket.email +
+		socket.broadcast.send(socket.email +
 			" just left the Chat system."
 		)
 	})
@@ -50,102 +38,6 @@ io.listen( app.listen(2000) )
 app.use(check)
 app.use(express.static('public'))
 app.use(express.static('uploads'))
-
-app.get ('/search', (req, res) => res.render('test.html'))
-
-app.get ('/api/list', list)
-
-function list(req, res) {
-	var r = [ ]
-
-	for (var c of coffee) {
-		if (c.price >= req.query.min &&
-			c.price <= req.query.max) {
-			r.push(c)
-		}
-	}
-
-	res.send(r)
-}
-
-app.get ('/api/coffee', search)
-function search(req, res) {
-	// For (3)
-	for (var c of coffee) {
-		if (req.query.name == c.name &&
-			req.query.size == c.size) {
-			res.send({price: c.price})
-			return;
-		}
-	}
-
-	// For (2)
-	/*
-	for (var i in coffee) {
-		if (req.query.name == coffee[i].name &&
-			req.query.size == coffee[i].size) {
-			res.send({price: coffee[i].price})
-			return;
-		}
-	}
-	*/
-	// For (1)
-	/*
-	for (var i = 0; i < coffee.length; i++) {
-		if (req.query.name == coffee[i].name &&
-			req.query.size == coffee[i].size) {
-			res.send({price: coffee[i].price})
-			return;
-		}
-	}
-	*/
-	res.send({price:'not found'})
-}
-
-var coffee = [
-	{name:'Espresso', size:'Solo', price:80},
-	{name:'Espresso', size:'Doppio', price:95},
-
-	{name:'Americano', size:'Tall',   price:100},
-	{name:'Americano', size:'Grande', price:115},
-	{name:'Americano', size:'Venti',  price:130},
-
-	{name:'Latte', size:'Tall',   price:110},
-	{name:'Latte', size:'Grande', price:125},
-	{name:'Latte', size:'Venti',  price:140},
-]
-
-
-
-app.get ('/api/status', showApiStatus)
-app.get ('/api/zip',    showZip)
-app.get ('/api/zip/:city', findZip)
-
-function showApiStatus(req, res) {
-	res.send({status:'ready'})
-}
-
-var zip = {
-	"บางรัก": "10500",
-	"ดุสิต": "10300"
-}
-
-function findZip(req, res) {
-	var c = zip[req.params.city]
-	if (c == null) {
-		c = "not found"
-	}
-	res.send({result: c})
-}
-
-function showZip(req, res) {
-	var c = zip[req.query.city]
-	if (c == null) {
-		c = "not found"
-	}
-	res.set('Access-Control-Origin-Allow', '*')
-	res.send({result:c})
-}
 
 app.get ('/',         home)
 app.get ('/register', register)
@@ -302,4 +194,102 @@ function home(req, res) {
 
 function register(req, res) {
 	res.render('register.html')
+}
+
+
+
+
+app.get ('/search', (req, res) => res.render('test.html'))
+app.get ('/api/list', list)
+
+function list(req, res) {
+	var r = [ ]
+
+	for (var c of coffee) {
+		if (c.price >= req.query.min &&
+			c.price <= req.query.max) {
+			r.push(c)
+		}
+	}
+
+	res.send(r)
+}
+
+app.get ('/api/coffee', search)
+function search(req, res) {
+	// For (3)
+	for (var c of coffee) {
+		if (req.query.name == c.name &&
+			req.query.size == c.size) {
+			res.send({price: c.price})
+			return;
+		}
+	}
+
+	// For (2)
+	/*
+	for (var i in coffee) {
+		if (req.query.name == coffee[i].name &&
+			req.query.size == coffee[i].size) {
+			res.send({price: coffee[i].price})
+			return;
+		}
+	}
+	*/
+	// For (1)
+	/*
+	for (var i = 0; i < coffee.length; i++) {
+		if (req.query.name == coffee[i].name &&
+			req.query.size == coffee[i].size) {
+			res.send({price: coffee[i].price})
+			return;
+		}
+	}
+	*/
+	res.send({price:'not found'})
+}
+
+var coffee = [
+	{name:'Espresso', size:'Solo', price:80},
+	{name:'Espresso', size:'Doppio', price:95},
+
+	{name:'Americano', size:'Tall',   price:100},
+	{name:'Americano', size:'Grande', price:115},
+	{name:'Americano', size:'Venti',  price:130},
+
+	{name:'Latte', size:'Tall',   price:110},
+	{name:'Latte', size:'Grande', price:125},
+	{name:'Latte', size:'Venti',  price:140},
+]
+
+
+
+app.get ('/api/status', showApiStatus)
+app.get ('/api/zip',    showZip)
+app.get ('/api/zip/:city', findZip)
+
+function showApiStatus(req, res) {
+	res.send({status:'ready'})
+}
+
+var zip = {
+	"บางรัก": "10500",
+	"ดุสิต": "10300"
+}
+
+function findZip(req, res) {
+	var c = zip[req.params.city]
+	if (c == null) {
+		c = "not found"
+	}
+	res.send({result: c})
+}
+
+function showZip(req, res) {
+	var c = zip[req.query.city]
+	if (c == null) {
+		c = "not found"
+	}
+	res.set('Access-Control-Origin-Allow', '*')
+	res.send({result:c})
 }
