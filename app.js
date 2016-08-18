@@ -7,12 +7,13 @@ var client  = mongo.MongoClient
 var crypto  = require('crypto')
 var multer  = require('multer')
 var upload  = multer({dest:'./uploads'})
+var io      = require('socket.io')()
 
 var approved   = [ ]
 const database = "mongodb://127.0.0.1/test1"
 
 app.engine('html', ejs.renderFile)
-app.listen(2000)
+io.listen( app.listen(2000) )
 app.use(check)
 app.use(express.static('public'))
 app.use(express.static('uploads'))
@@ -122,7 +123,16 @@ app.get ('/profile',  profile)
 app.post('/profile',  upload.single('picture'), updateProfile)
 app.get ('/logout',   logout)
 app.get (['/contact', '/contact-us'], showContact)
+app.get ('/chat', showChat)
 app.use (showError)
+
+function showChat(req, res) {
+	if (approved[req.token] == null) {
+		res.redirect('/login')
+	} else {
+		res.render('chat.html')
+	}
+}
 
 function updateProfile(req, res) {
 	var ext = ""
