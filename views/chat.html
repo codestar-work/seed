@@ -1,9 +1,18 @@
 <% include header.html %>
 
-<textarea class='form-control'></textarea>
+<style>
+	form {
+		max-width: 100%;
+		padding: 10px;
+	}
+</style>
+
 <form action='javascript:send()'>
-<input class='form-control'>
-<button type='submit'>Send</button>
+	<textarea class='form-control'></textarea>
+	<input class='form-control' autofocus
+		placeholder='Type Message Here'>
+	<button type='submit' class='btn btn-primary'
+	>Send</button>
 </form>
 
 <% include footer.html %>
