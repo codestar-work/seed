@@ -8,8 +8,8 @@
 </style>
 
 <form action='javascript:send()'>
-	<textarea class='form-control'
-		id='history' ></textarea>
+	<div id='log'>
+	</div>
 	<input class='form-control' autofocus
 		placeholder='Type Message Here'
 		id='message'>
@@ -21,12 +21,11 @@
 <script src='/socket.io/socket.io.js'></script>
 <script>
 	var socket = io.connect('/')
-	// socket.send({email: '<%= user.email %>'})
 	socket.send({action:'email', value:'<%= user.email %>'})
 	socket.on('message', m => {
-		var s = $('#history').val()
-		s += m + '\n'
-		$('#history').val(s)
+		var t = $('#log').html()
+		t += m + '<br>'
+		$('#log').html(t)
 	})
 	function send() {
 		var s = $('#message').val()
