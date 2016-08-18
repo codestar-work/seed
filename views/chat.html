@@ -21,7 +21,8 @@
 <script src='/socket.io/socket.io.js'></script>
 <script>
 	var socket = io.connect('/')
-	socket.send({email: '<%= user.email %>'})
+	// socket.send({email: '<%= user.email %>'})
+	socket.send({action:'email', value:'<%= user.email %>'})
 	socket.on('message', m => {
 		var s = $('#history').val()
 		s += m + '\n'
@@ -29,7 +30,8 @@
 	})
 	function send() {
 		var s = $('#message').val()
-		socket.send(s)
+		$('#message').val('')
+		socket.send({action:'chat', value:s})
 	}
 </script>
 

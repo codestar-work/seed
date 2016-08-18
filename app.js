@@ -15,6 +15,18 @@ const database = "mongodb://127.0.0.1/test1"
 io.on('connection', socket => {
 	socket.send('Welcome to Chat system.')
 	socket.on('message', m => {
+		if (m.action == 'email') {
+			socket.email = m.value
+			socket.broadcast.send(
+				m.value + 
+				" just joined the Chat system.")
+		} else if (m.action == 'chat') {
+			socket.send(socket.email + ": " + m.value)
+			socket.broadcast.send(socket.email + ": " + m.value)
+		} else {
+
+		}
+		/*
 		if (m.email != null) {
 			socket.email = m.email
 			socket.broadcast.send(
@@ -23,6 +35,7 @@ io.on('connection', socket => {
 		} else {
 			socket.broadcast.send(m)
 		}
+		*/
 	})
 	socket.on('disconnect', () => {
 		socket.broadcast.send(
