@@ -8,17 +8,24 @@
 </style>
 
 <form action='javascript:send()'>
-	<textarea class='form-control'></textarea>
+	<textarea class='form-control'
+		id='history' ></textarea>
 	<input class='form-control' autofocus
 		placeholder='Type Message Here'>
 	<button type='submit' class='btn btn-primary'
 	>Send</button>
 </form>
 
+<script src='https://icode.run/jquery.js'></script>
 <script src='/socket.io/socket.io.js'></script>
 <script>
 	var socket = io.connect('/')
 	socket.send({email: '<%= user.email %>'})
+	socket.on('message', m => {
+		var s = $('#history').val()
+		s += m + '\n'
+		$('#history').val(s)
+	})
 </script>
 
 <% include footer.html %>

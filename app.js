@@ -13,6 +13,7 @@ var approved   = [ ]
 const database = "mongodb://127.0.0.1/test1"
 
 io.on('connection', socket => {
+	socket.send('Welcome to Chat system.')
 	socket.on('message', m => {
 		console.log(m)
 	})
