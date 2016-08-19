@@ -55,7 +55,12 @@
 		var s = "Location: " +
 		p.coords.latitude + ", " +
 		p.coords.longitude
-		socket.send({action:'chat', value:s})
+		var a = "<a href='https://google.com" +
+		"/maps/@" + p.coords.latitude + ',' +
+		p.coords.longitude + ",15z' target='_blank'>" 
+		+ s + "</a>"
+		console.log(a)
+		socket.send({action:'chat', value:a})
 	}
 	function positionError(e) {
 		console.log(e)
