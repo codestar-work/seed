@@ -23,6 +23,8 @@
 	>Send</button>
 	<a href='javascript:clear()'
 		class='btn btn-default'>Clear Log</a>
+	<a href='javascript:shareLocation()'
+		class='btn btn-default'>Share Location</a>
 </form>
 
 <script src='https://icode.run/jquery.js'></script>
@@ -42,6 +44,18 @@
 	}
 	function clear() {
 		$('#log').html('')
+	}
+	function shareLocation() {
+		navigator.geolocation.getCurrentPosition
+			(positionSuccess, positionError,
+			{enableHighAccuracy: true})
+	}
+
+	function positionSuccess(p) {
+		console.log(p)
+	}
+	function positionError(e) {
+		console.log(e)
 	}
 </script>
 
