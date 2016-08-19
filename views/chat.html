@@ -52,7 +52,10 @@
 	}
 
 	function positionSuccess(p) {
-		console.log(p)
+		var s = "Location: " +
+		p.coords.latitude + ", " +
+		p.coords.longitude
+		socket.send({action:'chat', value:s})
 	}
 	function positionError(e) {
 		console.log(e)
