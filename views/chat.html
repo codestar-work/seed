@@ -65,6 +65,27 @@
 	function positionError(e) {
 		console.log(e)
 	}
+
+	var r = new webkitSpeechRecognition();
+	r.lang = 'th'
+	r.onresult = e => {
+		var s = e.results[0][0].transcript
+		socket.send({action:'chat', value:s})
+	}
+
+	$('#message').keydown( e => {
+		if (e.which == 16) {
+			r.start()
+		}
+	})
+
+	$('#message').keyup( e => {
+		if (e.which == 16) {
+			r.stop()
+		}
+	})
+
+
 </script>
 
 <% include footer.html %>
